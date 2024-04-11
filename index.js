@@ -7,7 +7,7 @@ const port = 4000;
 // Define a route to make the Axios request
 app.get('/', async (req, res) => {
   try {
-    const response = await axios.get('https://fmls-scrapper-stra.onrender.com');
+    const response = await axios.get('https://fmls-scrapper-stra.onrender.com/all');
     res.json(response.data);
   } catch (error) {
     console.error('Error in making GET request:', error);
