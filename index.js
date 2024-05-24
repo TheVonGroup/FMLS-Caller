@@ -1,19 +1,30 @@
 const express = require('express');
 const axios = require('axios');
+var cron = require('node-cron');
+
 
 const app = express();
 const port = 4000;
 
 // Define a route to make the Axios request
-app.get('/', async (req, res) => {
+const fetch = async () => {
   try {
     const response = await axios.get('https://fmls-scrapper-stra.onrender.com/all');
-    res.json(response.data);
+    console.log("response " ,response)
   } catch (error) {
     console.error('Error in making GET request:', error);
-    res.status(500).json({ error: 'An error occurred while fetching data' });
+    console.log("Stopped")
   }
+}
+
+
+
+cron.schedule('0 3 * * *', () => {
+  fetch();
 });
+
+
+
 
 // Start the server
 app.listen(port, () => {
