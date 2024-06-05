@@ -19,7 +19,7 @@ const fetch = async () => {
 
 
 
-cron.schedule('0 3 * * *', () => {
+cron.schedule('0 22 * * *', () => {
   fetch();
 });
 
