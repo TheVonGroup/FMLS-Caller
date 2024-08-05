@@ -15,6 +15,14 @@ const fetch = async () => {
     console.error('Error in making GET request:', error);
     console.log("Stopped")
   }
+  await new Promise((resolve) => setTimeout(resolve, 4000));
+  try {
+    const response = await axios.get('https://filtered-fmls.onrender.com/all');
+    console.log("response " ,response)
+  } catch (error) {
+    console.error('Error in making GET request:', error);
+    console.log("Stopped")
+  }
 }
 
 
