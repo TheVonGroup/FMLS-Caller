@@ -6,6 +6,11 @@ var cron = require('node-cron');
 const app = express();
 const port = 4000;
 
+function getCurrentEST() {
+    const now = new Date();
+    return new Date(now.toLocaleString("en-US", { timeZone: "America/New_York" }));
+}
+
 // Define a route to make the Axios request
 const fetch = async () => {
   try {
@@ -27,10 +32,17 @@ const fetch = async () => {
 
 
 
-cron.schedule('0 22 * * *', () => {
-  fetch();
-});
+cron.schedule("0 * * * *", async () => {
+    const now = getCurrentEST();
+    const currentHour = now.getHours(); // Gets hour in EST
 
+    if (currentHour === 6) {
+        console.log(`Running fetch at EST hour: ${currentHour}`);
+        await fetch();
+    } else {
+        console.log(`Skipping fetch at EST hour: ${currentHour}`);
+    }
+});
 
 
 
